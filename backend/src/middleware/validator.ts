@@ -53,3 +53,29 @@ export const validateTodo = (
 
   next();
 };
+
+export const validateUpdateTodo = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { task, is_completed } = req.body;
+
+  if (
+    !task ||
+    typeof task !== "string" ||
+    task.trim() === ""
+  ) {
+    return res.status(400).json({
+      message: "Task wajib diisi",
+    });
+  }
+
+  if (typeof is_completed !== "boolean") {
+    return res.status(400).json({
+      message: "is_completed harus berupa boolean",
+    });
+  }
+
+  next();
+};
